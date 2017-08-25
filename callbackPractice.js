@@ -23,6 +23,9 @@ and what you should write is the sayHi function that makes the code above work,
 // 1. Write a function called first that returns the first item of the array using a callback function
 
   // Code Here
+  function first(array, cb){
+    cb(array[0]);
+  }
 
   
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
@@ -36,6 +39,9 @@ first(names, function(firstName){
 // 2. Write a function called last which returns the last item of the array using a callback function.
 
   //Code Here
+  function last(arr, cb){
+    cb(arr[arr.length-1]);
+  }
 
 
 
@@ -49,6 +55,9 @@ last(names, function(lastName){
 // 3. Write a function called multiply that multiplies two numbers. Invoke the callback with the result of the multiplication. 
 
   //Code Here
+  function multiply(num1, num2, cb){
+    return cb(num1*num2);
+  }
 
 
 
@@ -63,6 +72,13 @@ multiply(4, 3, function(answer){
 // If the name does not exist, invoke the callback with false as an argument.
 
   //Code Here 
+  function contains(arr, name, cb){
+    if (arr.indexOf(name) !== -1){
+      cb(true);
+    } else {
+      cb(false);
+    }
+  }
 
 
 
@@ -81,6 +97,20 @@ contains(names, 'Colt', function(result){
 // Invoke the callback with the modified array as an argument.
 
   //Code Here
+  function uniq(arr, cb){
+
+    //is there a lower time complexity way to do this?
+    ////sort then pop if arr[i] === arr[i+1]?
+    ////build a new unique array and check if each letter is already in there?
+    // var unique = [];
+    for (var i=0; i<arr.length; i++){
+      if (arr.lastIndexOf(arr[i]) !== i){ //how slow is this going to be? is sorting and popping better?
+        arr.splice(i, 1);
+        i--;
+      }
+    }
+    cb(arr);
+  }
 
 
 
@@ -89,9 +119,15 @@ uniq(names, function(uniqArr){
 });
 
 
-// 6. Write a function called each that takes in an array of names. For each name in the array, invoke the callback and pass in the name and the name's index as arguments.
+// 6. Write a function called each that takes in an array of names. For each name in the array, 
+// invoke the callback and pass in the name and the name's index as arguments.
 
     //Code Here 
+    function each(names, cb){
+      for (var i=0; i<names.length; i++){
+        cb(names[i], i);
+      }
+    }
 
 
 
@@ -105,6 +141,13 @@ each(names, function(item, indice){
 // When the correct user object is found, invoke the callback with the user object as an argument.
 
 // Code here
+function getUserById(users, id, cb){
+  for (var i=0; i<users.length; i++){
+    if (users[i].id === id){
+      cb(users[i]);
+    }
+  }
+}
 
 
 
